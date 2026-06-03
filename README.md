@@ -1,4 +1,4 @@
-# CoachFit - Fitness Coach & Client Platform
+# FitMax - Fitness Coach & Client Platform
 
 > Two mobile apps that let fitness coaches in Egypt manage clients, assign diet plans, and build interactive training schedules — while clients log workouts, track body changes, and stay accountable.
 
@@ -34,8 +34,8 @@ Our paying customer is the **coach**. Our job is to make them look professional,
 | 4 | [Pricing & Costs](docs/04-pricing-and-costs.md) | 4 monetization models, EGP tiers, payment rails, Year-1 budget, break-even |
 | 5 | [Team & Execution](docs/05-team-and-execution.md) | Roles for 4, RACI, tools, sprint cadence, milestones, Dragon's deliverables |
 | 6 | [Coach Success Playbook](docs/06-coach-success-playbook.md) | Onboarding, white-label, referral program, support, content marketing |
-| 7 | [Resources](docs/07-resources.md) | Books, courses, competitor teardowns, Egypt-specific guides |
-| 8 | [Design Guidelines](docs/08-design-guidelines.md) | Arabic RTL, accessibility, design tokens, offline UX, coach branding theming |
+| 7 | [Design Guidelines](docs/07-design-guidelines.md) | Arabic RTL, accessibility, design tokens, offline UX, coach branding theming |
+| 8 | [Resources](docs/08-resources.md) | Books, courses, competitor teardowns, Egypt-specific guides |
 
 ## Tech Stack at a Glance
 
@@ -50,13 +50,13 @@ Infra:     Railway/Render + Cloudflare R2 + Firebase Cloud Messaging
 
 ## Team
 
-| Role | Responsibility |
-|------|---------------|
-| Founder / PM | Product, customer development, Dragon liaison, hiring |
-| Mobile Engineer | Both Expo apps + design system implementation |
-| Backend / Data Engineer | API, DB, payments, analytics pipeline |
-| Designer-Marketer | Figma, content, social, ASO, landing page |
-| Dragon (Advisor) | Weekly feedback, real clients for testing, exercise/food content |
+| Role | Person | Responsibility |
+|------|--------|---------------|
+| Founder / PM | Malek | Product, customer development, Dragon liaison, hiring |
+| Mobile Engineer | Omar Fahmy | Both Expo apps + design system implementation |
+| Backend / Data Engineer | Ahmed Khaled | API, DB, payments, analytics pipeline |
+| Designer-Marketer | Amr Khaled | Figma, content, social, ASO, landing page |
+| Dragon (Advisor) | Dragon | Weekly feedback, real clients for testing, exercise/food content |
 
 ## How to Use This Repo
 
@@ -65,15 +65,15 @@ This is a **planning-only** repository. No code lives here. To get started:
 1. Read this README for the big picture.
 2. Read `docs/01-business-plan.md` to understand the market and positioning.
 3. Read `docs/02-product-roadmap.md` to see what we're building and when.
-4. Assign yourself competitor teardowns from `docs/07-resources.md` in week 1.
+4. Assign yourself competitor teardowns from `docs/08-resources.md` in week 1.
 5. Check `docs/05-team-and-execution.md` for sprint cadence and your role's RACI.
 
 When we're ready to code, a separate repo will be created following the monorepo structure defined in `docs/03-tech-and-data.md`.
 
 ## Open Decisions
 
-- Final brand name (3 options in the business plan doc)
-- Monetization model for V1 (recommendation is tiered SaaS; alternatives documented)
+- ~~Final brand name~~ **Decided: FitMax**
+- ~~Monetization model for V1~~ **Decided: Tiered SaaS (Model A)**
 - Dragon's compensation structure (equity vs revenue share vs salary)
 - iOS + Android day 1, or Android-only first (85% market share in Egypt)
 - App Store billing strategy (web checkout vs Apple IAP 30% cut)

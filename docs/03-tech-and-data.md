@@ -27,7 +27,7 @@
 ## 2. Monorepo Structure
 
 ```
-coachfit/
+fitmax/
 ├── apps/
 │   ├── coach/                    # Expo app - Coach mobile
 │   │   ├── app/                  # File-based routing (Expo Router)

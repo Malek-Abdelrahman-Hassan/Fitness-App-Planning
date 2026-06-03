@@ -107,7 +107,7 @@ For the first 50 coaches, we do manual onboarding to learn:
 ### The 30-Minute Zoom Call
 
 **Booking:** After coach signs up + adds first client, we send WhatsApp message within 2h:
-> "Hey [Coach]! I'm [Name] from CoachFit. Congrats on signing up. Want a quick 30-min call to get you fully set up? I'll help you import your existing clients and build your first program. Pick a time: [Calendly link]"
+> "Hey [Coach]! I'm [Name] from FitMax. Congrats on signing up. Want a quick 30-min call to get you fully set up? I'll help you import your existing clients and build your first program. Pick a time: [Calendly link]"
 
 **Call agenda:**
 1. (5 min) Learn about their coaching business: how many clients, online/in-person, what tools they use today
@@ -138,7 +138,7 @@ Coaches can customize how the client app looks to their clients:
 
 | Customization | Free/Lite/Starter | Pro | Elite |
 |--------------|:-----------------:|:---:|:-----:|
-| CoachFit branding shown | Yes | No | No |
+| FitMax branding shown | Yes | No | No |
 | Custom logo in header | No | No | Yes |
 | Custom accent color | No | Yes | Yes |
 | Custom welcome message | No | Yes | Yes |
@@ -151,7 +151,7 @@ Coaches can customize how the client app looks to their clients:
 - Coach picks accent color (color picker or hex code)
 - Client app reads `coach.logo_url` and `coach.brand_color` from API
 - Dynamic theming: accent color applied to buttons, headers, progress bars
-- Logo shown in the client app's home screen header (replaces CoachFit logo for Elite)
+- Logo shown in the client app's home screen header (replaces FitMax logo for Elite)
 
 ### Why It Matters
 
@@ -248,7 +248,7 @@ This digest gives coaches a reason to open the app every Monday, even if they do
 
 ### Strategy: Make Dragon (and future coaches) the Hero
 
-We don't market CoachFit directly to coaches. We market **coach success stories** and let the tool be the enabler.
+We don't market FitMax directly to coaches. We market **coach success stories** and let the tool be the enabler.
 
 ### Content Calendar (Post-V1 Launch)
 
@@ -261,13 +261,13 @@ We don't market CoachFit directly to coaches. We market **coach success stories*
 
 ### Content Pillars
 
-1. **Client Transformations** — Before/after photos, story of the journey. CoachFit mentioned as the tool that made it possible. (Dragon provides these from his real clients.)
+1. **Client Transformations** — Before/after photos, story of the journey. FitMax mentioned as the tool that made it possible. (Dragon provides these from his real clients.)
 
-2. **Coach Education** — Training tips, nutrition science, business advice for coaches. Positions CoachFit as the brand that helps coaches grow. (Dragon + guest coaches create this.)
+2. **Coach Education** — Training tips, nutrition science, business advice for coaches. Positions FitMax as the brand that helps coaches grow. (Dragon + guest coaches create this.)
 
 3. **Behind the Scenes** — How we build the product, what's coming next, coach feedback sessions. Builds authenticity and community. (Team creates this.)
 
-4. **Social Proof** — Testimonials, case studies, "X coaches now use CoachFit", milestone celebrations. (Automated from data + coach submissions.)
+4. **Social Proof** — Testimonials, case studies, "X coaches now use FitMax", milestone celebrations. (Automated from data + coach submissions.)
 
 ### Dragon as Content Partner
 
@@ -275,7 +275,7 @@ We don't market CoachFit directly to coaches. We market **coach success stories*
 |--------------|-----------|-----------|
 | Instagram Reel (training tip) | 2x/month | Dragon creates, we edit + brand |
 | Client transformation post | 1x/month | Dragon provides content, we design |
-| "How I use CoachFit" story | 1x/month | Dragon records on his phone |
+| "How I use FitMax" story | 1x/month | Dragon records on his phone |
 | Live Q&A with Dragon | 1x/quarter | Joint Instagram Live |
 | App Store testimonial quote | Once | Dragon provides written quote |
 
@@ -289,7 +289,7 @@ We don't market CoachFit directly to coaches. We market **coach success stories*
 |---------|:------------:|:-------------------:|
 | WhatsApp Business | Sat-Thu, 10am-8pm (Egypt time) | <2 hours |
 | In-app help chat (V2+) | Same hours | <4 hours |
-| Email (support@coachfit.app) | 24/7 (async) | <24 hours |
+| Email (support@fitmax.app) | 24/7 (async) | <24 hours |
 | Emergency (app down) | 24/7 | <30 minutes |
 
 ### Tier-Based Support

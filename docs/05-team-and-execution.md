@@ -6,10 +6,10 @@
 
 | Role | Person | Time Commitment | Core Responsibility |
 |------|--------|:--------------:|-------------------|
-| **Founder / PM** | TBD (you) | Full-time equivalent | Product vision, customer development, Dragon relationship, sprint planning, investor readiness |
-| **Mobile Engineer** | TBD | Full-time equivalent | Both Expo apps (coach + client), design system implementation, offline sync, app performance |
-| **Backend / Data Engineer** | TBD | Full-time equivalent | NestJS API, PostgreSQL schema, Prisma, payments integration, analytics pipeline, DevOps |
-| **Designer-Marketer** | TBD | Full-time equivalent | Figma design system, UI/UX flows, marketing content, social media, ASO, landing page |
+| **Founder / PM** | Malek | Full-time equivalent | Product vision, customer development, Dragon relationship, sprint planning, investor readiness |
+| **Mobile Engineer** | Omar Fahmy | Full-time equivalent | Both Expo apps (coach + client), design system implementation, offline sync, app performance |
+| **Backend / Data Engineer** | Ahmed Khaled | Full-time equivalent | NestJS API, PostgreSQL schema, Prisma, payments integration, analytics pipeline, DevOps |
+| **Designer-Marketer** | Amr Khaled | Full-time equivalent | Figma design system, UI/UX flows, marketing content, social media, ASO, landing page |
 | **Dragon (Advisor)** | Dragon | ~5-7 hrs/week | Domain expertise, user testing, content (exercises + food), client recruitment for alpha |
 
 ### RACI Matrix (V0 Phase)
@@ -204,7 +204,7 @@ A story is "done" when ALL of these are true:
 | Sprint | Focus | Key Deliverables |
 |--------|-------|-----------------|
 | Sprint 3 | Workout builder (coach) | Exercise library (200 loaded), template builder UI, day-by-day program creation |
-| Sprint 4 | Workout logger (client) | Client sees assigned workout, logs sets (reps/weight/RPE), rest timer, offline sync working |
+| Sprint 4 | Workout logger (client) | Client sees assigned workout, logs sets (reps/weight), rest timer, offline sync working |
 
 **Month 2 Exit Criteria:**
 - [ ] Coach (Dragon) builds a real program for a real client
@@ -242,7 +242,7 @@ A story is "done" when ALL of these are true:
 **Month 4 Exit Criteria:**
 - [ ] 3 coaches besides Dragon have registered and built a program
 - [ ] At least 1 coach has successfully paid (Starter or higher)
-- [ ] Free tier limits enforced (can't add 4th client without upgrading)
+- [ ] Free tier working (unlimited clients, paid tier feature gates enforced)
 - [ ] Billing web page works with card + Fawry + Vodafone Cash
 
 ### Month 5: V1 Polish + Pre-Launch
@@ -251,13 +251,13 @@ A story is "done" when ALL of these are true:
 
 | Sprint | Focus | Key Deliverables |
 |--------|-------|-----------------|
-| Sprint 9 | Chat + video library | Simple 1:1 chat (text + photos), exercise video clips for top 100 exercises |
+| Sprint 9 | Video library + polish | Exercise video clips for top 100 exercises, chat improvements (read receipts, typing indicator) |
 | Sprint 10 | App Store prep + marketing | App Store screenshots, descriptions (Arabic + English), landing page, social media launch content, coach dashboard (basic) |
 
 **Month 5 Exit Criteria:**
-- [ ] Chat functional between all test coach-client pairs
+- [ ] Chat polished with read receipts and typing indicators
 - [ ] App Store submission ready (screenshots, descriptions, privacy policy)
-- [ ] Landing page live at coachfit.app
+- [ ] Landing page live at fitmax.app
 - [ ] Dragon has recorded 2-3 testimonial videos
 - [ ] 10 coaches on waitlist from pre-launch marketing
 

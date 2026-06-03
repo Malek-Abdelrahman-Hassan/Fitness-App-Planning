@@ -24,7 +24,7 @@ We start with Egypt because we know it, we have Dragon as a design partner, and 
 ### The Relationship
 
 ```
-Us (CoachFit) → sells to → Coach → sells to → Client
+Us (FitMax) → sells to → Coach → sells to → Client
                                                   ↓
                               Client loves app → Coach retains client → Coach stays with us
 ```
@@ -131,7 +131,7 @@ Our edge is not "they don't exist" — it's that we execute differently: offline
 
 ## 6. Brand & Naming Options
 
-### Option A: CoachFit (Working Name)
+### Option A: FitMax (Working Name)
 - **Pros:** Clear, international-sounding, domain likely available in .app/.io variants
 - **Cons:** Generic, hard to trademark, doesn't signal Arabic/local
 

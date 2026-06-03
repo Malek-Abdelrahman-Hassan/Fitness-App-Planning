@@ -26,10 +26,11 @@ Validate that the core loop works: Coach assigns plan â†’ Client logs workouts â
 | Phone signup + profile | OTP-based auth, coach name, photo, specialization | Coach can sign up in <60 seconds |
 | Add client (manual) | Enter client name + phone, generates invite code | Client receives SMS/WhatsApp invite link |
 | Exercise library | Pre-loaded library (~200 exercises) with muscle groups, equipment tags | Coach can search and filter exercises |
-| Workout template builder | Drag exercises into days, set reps x sets x weight x rest per exercise | Coach builds a full week program in <10 min |
+| Workout template builder | Drag exercises into days, set reps x sets x weight x rest per exercise. Add video reference link per exercise. | Coach builds a full week program in <10 min |
 | Diet template builder | Add meals with food items, specify macros (protein/carbs/fat/calories) per meal | Coach builds a full day diet in <5 min |
 | Assign template to client | Pick a client, assign workout and/or diet template | Client sees assigned plan immediately (push notification) |
 | Client list view | See all clients with last-active indicator | Coach knows who's engaged and who's gone quiet |
+| Simple chat (text + photos) | 1:1 messaging between coach and client. Text messages + photo sharing. | Coach can communicate without leaving the app |
 
 ### Client App Features
 
@@ -37,7 +38,7 @@ Validate that the core loop works: Coach assigns plan â†’ Client logs workouts â
 |---------|-------------|-------------------|
 | Phone signup with invite code | Enter code from coach, OTP auth, basic profile (name, photo, age, height) | Client onboarded in <90 seconds |
 | View assigned diet (read-only) | See meals for the day with macros, food items, quantities | Clear, beautiful daily view. No editing allowed in V0. |
-| Interactive workout | See today's assigned exercises. For each: choose which sets to do, log weight + reps + RPE per set | Client completes a workout log in real-time during session |
+| Interactive workout | See today's assigned exercises. For each: choose which sets to do, log weight + reps per set | Client completes a workout log in real-time during session |
 | Rest timer | Auto-starts between sets based on coach's prescribed rest | Timer visible, vibrates when done |
 | Body measurements log | Log weight, waist, chest, arm, thigh, body-fat % (manual entry) | Can log and see history graph |
 | Progress photos | Take/upload front + side + back photos, tagged by date | Photos stored securely, visible to client + their coach only |
@@ -47,17 +48,16 @@ Validate that the core loop works: Coach assigns plan â†’ Client logs workouts â
 
 | Feature | Description |
 |---------|-------------|
-| Push notifications | "New plan assigned", "Reminder: leg day today", "Coach sent you a message" (text only in V0, placeholder for V1 chat) |
+| Push notifications | "New plan assigned", "Reminder: leg day today", "New message from coach", "New message from client" |
 | Full event logging | Every action tracked: screen views, set logged, photo uploaded, plan viewed, etc. |
 | Offline workout logging | Client can log sets with no internet. Syncs automatically when back online. |
 | Error tracking | Sentry integration for crash reporting |
 
 ### Explicitly OUT of Scope for V0
 
-- Chat (deferred to V1)
 - Billing / payments
 - Multi-coach support
-- Exercise videos
+- Exercise videos (coach can link external video references)
 - Diet editing by client
 - Web admin
 - Analytics dashboard for coach
@@ -68,6 +68,7 @@ Validate that the core loop works: Coach assigns plan â†’ Client logs workouts â
 - [ ] Dragon uses the coach app daily to manage at least 5 clients
 - [ ] 80%+ of Dragon's test clients log workouts at least 3x/week
 - [ ] Zero data loss incidents (offline sync works)
+- [ ] Chat adoption: Dragon uses in-app chat instead of WhatsApp for >50% of client communication
 - [ ] NPS survey at M3 end: score > 7 from both Dragon and clients
 - [ ] Dragon says "I don't want to go back to WhatsApp for this"
 
@@ -85,7 +86,6 @@ Validate willingness to pay. Can we onboard 20 coaches who aren't Dragon and get
 | Multi-coach support | Multiple coaches can register independently, each with their own client roster | Must-have |
 | Coach billing | Tiered subscription via web checkout (Paymob). Free tier auto-applied. | Must-have |
 | Coach onboarding flow | Guided first-time experience: create first program, add first client, see sample data | Must-have |
-| Simple chat (text + photos) | 1:1 between coach and client. Text messages + photo sharing. | Must-have |
 | Exercise video library | Short looping clips for ~100 most common exercises. Coach can link videos to exercises. | Should-have |
 | Weekly summary report | Auto-generated summary for client: workouts completed, PRs hit, adherence % | Should-have |
 | Coach dashboard (basic) | Client adherence %, which clients logged this week, which are inactive | Should-have |
@@ -183,7 +183,7 @@ Build virality and community. Make coaches recruit other coaches. Make clients s
 | AI auto-progression | Suggest weight/rep increases based on client's logged history and rate of progress | Medium |
 | AI diet generator | Generate meal plans from: client preferences, budget, Egyptian grocery availability, macro targets | High |
 | Computer vision form check | Client records a set, AI analyzes form and flags issues (requires ML model training) | Very High |
-| Churn-risk model | Alert coach when a client shows disengagement patterns (missed sessions, lower RPE, no check-ins) | Medium |
+| Churn-risk model | Alert coach when a client shows disengagement patterns (missed sessions, declining volume, no check-ins) | Medium |
 | Smart scheduling | Suggest optimal workout times based on client's historical logging patterns | Low |
 | Natural language plan building | Coach types "push-pull-legs split for intermediate, 4 days/week" and gets a generated template | Medium |
 
@@ -196,7 +196,7 @@ Build virality and community. Make coaches recruit other coaches. Make clients s
 | Payment processing | Clients pay coaches through the app. We process payments, take revenue share. |
 | API for integrations | Connect with wearables (Apple Watch, Garmin, Fitbit), MyFitnessPal, etc. |
 | White-label full | Fully branded coach app (separate App Store listing for premium coaches) |
-| Multi-location / gym partnerships | Gyms can use CoachFit for all their trainers. B2B enterprise tier. |
+| Multi-location / gym partnerships | Gyms can use FitMax for all their trainers. B2B enterprise tier. |
 
 ### Year 2 Success Criteria
 

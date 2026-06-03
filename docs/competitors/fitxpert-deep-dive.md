@@ -23,6 +23,7 @@ They are ahead of us: founded in 2023, funded ($1.3M seed in Jan 2026), live on 
 | **Funding** | ~$1.3M Seed (Jan 2026) from Foras Investment (Abu Dhabi, under 0107 Invest initiative) |
 | **Platforms** | Web + iOS + Android (coach dashboard + client app) |
 | **App Store ID** | iOS: `id6673904408` / Android: `com.fitxpert.teams` |
+| **Platform Metrics** | 900+ coaches, 150K+ clients, 500K+ workouts delivered, 950K+ diets delivered |
 | **App Store Rating** | iOS: 4.5/5 (10 ratings) / Google Play: 4.4/5 (34 reviews, 5K+ installs) |
 | **Latest version** | v9.3.0 (updated May 2026) |
 
@@ -78,25 +79,52 @@ FitXpert calls itself **"infrastructure"** — not a point solution, but a full 
 
 ---
 
-## Pricing (What We Know)
+## Pricing (Confirmed — Public Tiers)
 
-FitXpert does **not** publicly list pricing. Their pricing page returns a 500 error as of June 2026. From available intel:
+FitXpert uses a **tiered subscription model based on client count**. Pricing is in USD:
 
-| Signal | What It Suggests |
-|--------|-----------------|
-| "Subscription tiers by client count" | Similar to Trainerize model — tiered SaaS |
-| "Individual trainers + larger corporate deployments" | They have both solo coach and enterprise pricing |
-| No public pricing page | Likely sales-led for larger accounts, possibly self-serve for small coaches |
-| Funded $1.3M — needs revenue | Prices likely higher than what free/WhatsApp coaches expect |
+### Tier Overview
 
-### Estimated Pricing (Based on Market Positioning)
+| Category | Free | Individual | Corporate |
+|----------|:----:|:---------:|:---------:|
+| **Clients** | 3 | 10–250 | 300–Unlimited |
+| **Price** | $0 | $10–$80/mo | $100–$350/mo |
+| **Team Members** | 1 | 3 | Unlimited |
 
-Given they serve clinics + centers + individual trainers, likely:
-- Solo trainer: 200-500 EGP/mo (or per-client pricing)
-- Nutrition center/clinic: 1,000-5,000 EGP/mo (based on team size)
-- Enterprise/gym chain: Custom pricing
+### Individual Tier Breakdown
 
-Their lack of public pricing is a **weakness we can exploit** — transparent pricing builds trust with independent coaches.
+| Clients | Monthly Price |
+|:-------:|:------------:|
+| 10 | $10 |
+| 15 | $15 |
+| 25 | $25 |
+| 50 | $30 |
+| 75 | $40 |
+| 100 | $50 |
+| 150 | $65 |
+| 250 | $80 |
+
+### Corporate Tier Breakdown
+
+| Clients | Monthly Price |
+|:-------:|:------------:|
+| 300 | $100 |
+| 500 | $125 |
+| 5,000 | $175 |
+| 10,000 | $275 |
+| Unlimited | $350 |
+
+### All Plans Include
+- Plans Builder (workout + nutrition)
+- Food & Workout Library
+- Client Data Management
+- Insightful Reports
+- Custom Branding
+- Flexible Subscription Options
+
+### Pricing Analysis
+
+At current USD-EGP rates (~50 EGP/$1), their individual tiers translate to **500–4,000 EGP/mo** — expensive for the average independent Egyptian coach. The free tier is capped at only 3 clients, making it essentially a trial. This creates a clear opportunity for us to offer a more generous free tier and competitive EGP-denominated pricing.
 
 ---
 
@@ -122,7 +150,7 @@ Their lack of public pricing is a **weakness we can exploit** — transparent pr
 
 | Weakness | Evidence | Our Opportunity |
 |----------|----------|-----------------|
-| **No public pricing — feels enterprise/opaque** | Pricing page 500 error, no self-serve signup visible | Transparent pricing, self-serve free tier, instant signup |
+| **USD pricing — expensive for Egyptian coaches** | $10–$80/mo individual tiers (500–4,000 EGP), free tier capped at 3 clients | EGP-denominated pricing, unlimited free tier, instant signup |
 | **Low app ratings/installs (5K Android, 10 iOS ratings)** | Still early traction despite being founded 2023 | They haven't cracked viral growth yet — we can move fast |
 | **No offline support mentioned** | App Store listing doesn't mention offline | Offline-first is our wedge for gym basements |
 | **"Infrastructure" positioning = complex, enterprise-y** | Their language is B2B/corporate, not coach-friendly | We speak coach language, mobile-first, simple |
@@ -149,7 +177,7 @@ FitXpert positions as "infrastructure for fitness businesses." That's enterprise
 |---------------|-------------|
 | Web dashboard for coaches | Mobile-first for coaches (they work from phone) |
 | Enterprise/clinic language | Coach-personal language ("your clients", "your brand") |
-| Opaque pricing, sales-led | Transparent pricing, self-serve signup, generous free tier |
+| USD pricing, free tier capped at 3 clients | EGP pricing, unlimited free tier, self-serve signup |
 | Broad (coaches + clinics + centers) | Laser-focused on independent online coaches |
 | No visible social proof | Dragon as living case study, transformation content |
 | Complex onboarding (likely) | 60-second signup, first client in 5 minutes |
@@ -179,12 +207,12 @@ FitXpert positions as "infrastructure for fitness businesses." That's enterprise
 
 ## Competitive Positioning Matrix
 
-| Dimension | FitXpert | Us (CoachFit) | Winner |
+| Dimension | FitXpert | Us (FitMax) | Winner |
 |-----------|----------|---------------|:------:|
 | Market focus | Coaches + clinics + centers | Independent online coaches | Us (focus) |
 | Primary interface (coach) | Web dashboard | Mobile app | Us (Egypt context) |
 | Offline support | Not mentioned | Core architecture (WatermelonDB) | Us |
-| Pricing transparency | Hidden | Public tiers + free tier | Us |
+| Pricing transparency | USD pricing, free tier = 3 clients | EGP pricing, unlimited free tier | Us |
 | Egyptian food database | Generic | Localized (koshari, ful, etc.) | Us |
 | Workout logging UX | Standard | Hevy/Strong-inspired (fast, pre-filled) | Us |
 | Gamification | None visible | Streaks, badges, leaderboard | Us |
