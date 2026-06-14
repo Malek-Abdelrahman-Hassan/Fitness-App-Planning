@@ -109,17 +109,19 @@
         <!-- شريط علوي -->
         <div class="p-4 pb-2 bg-slate-900/95 backdrop-blur sticky top-0 z-10 border-b border-slate-800">
           <div class="flex items-center justify-between mb-2">
-            <button @click="confirmExit()" class="text-slate-400 text-sm">إنهاء ✕</button>
+            <button @click="sidebarOpen = true" class="text-slate-200 text-xl leading-none px-1" aria-label="القائمة">☰</button>
             <span class="text-slate-400 text-sm" x-text="(currentIndex + 1) + ' / ' + activeQuestions.length"></span>
+            <button @click="confirmExit()" class="text-slate-400 text-sm">إنهاء ✕</button>
           </div>
           <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
             <div class="bg-emerald-500 h-full transition-all duration-300" :style="'width:' + progressPct + '%'"></div>
           </div>
-          <div class="flex items-center justify-between mt-2">
-            <span class="text-xs px-2 py-1 rounded-full font-bold"
+          <div class="flex items-center justify-between mt-2 gap-2">
+            <span class="text-xs px-2 py-1 rounded-full font-bold shrink-0"
               :class="priorityClass(currentQuestion.priority)"
               x-text="priorities[currentQuestion.priority].label"></span>
-            <span class="text-xs text-slate-500" x-text="currentQuestion.section"></span>
+            <span class="text-sm font-bold text-sky-300 truncate" x-text="'📂 ' + currentQuestion.category"></span>
+            <span class="text-xs text-slate-500 shrink-0" x-text="currentQuestion.section"></span>
           </div>
         </div>
 
@@ -196,6 +198,40 @@
           <button @click="nextQuestion()"
             class="flex-1 bg-emerald-500 active:bg-emerald-600 text-slate-900 font-bold rounded-2xl py-4"
             x-text="currentIndex === activeQuestions.length - 1 ? 'إنهاء' : 'التالي'"></button>
+        </div>
+
+        <!-- ====== القائمة الجانبية للتنقل ====== -->
+        <div x-show="sidebarOpen" x-transition.opacity @click="sidebarOpen = false"
+          class="fixed inset-0 bg-black/60 z-40"></div>
+        <div x-show="sidebarOpen"
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+          x-transition:leave="transition ease-in duration-150"
+          x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
+          class="fixed top-0 bottom-0 right-0 w-80 max-w-[85%] bg-slate-900 border-l border-slate-800 z-50 flex flex-col shadow-2xl">
+          <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+            <span class="font-extrabold">التنقل بين الأسئلة</span>
+            <button @click="sidebarOpen = false" class="text-slate-400 text-lg px-1">✕</button>
+          </div>
+          <div class="flex-1 overflow-y-auto p-3 safe-bottom">
+            <template x-for="group in sidebarGroups" :key="group.category">
+              <div class="mb-4">
+                <div class="text-sky-300 font-bold text-sm mb-2 px-1" x-text="'📂 ' + group.category"></div>
+                <div class="space-y-1">
+                  <template x-for="item in group.items" :key="item.id">
+                    <button @click="jumpTo(item.index)"
+                      :class="item.index === currentIndex ? 'bg-emerald-500/20 border-emerald-500' : 'bg-slate-800 border-transparent active:bg-slate-700'"
+                      class="w-full text-right border rounded-lg p-2.5 flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full shrink-0" :class="priorityDot(item.priority)"></span>
+                      <span class="flex-1 text-sm text-slate-200 truncate" x-text="item.keywords"></span>
+                      <span class="text-xs shrink-0" :class="isAnswered(item.id) ? 'text-emerald-400' : 'text-slate-600'"
+                        x-text="isAnswered(item.id) ? '✓' : '—'"></span>
+                    </button>
+                  </template>
+                </div>
+              </div>
+            </template>
+          </div>
         </div>
       </div>
     </template>

@@ -4,6 +4,7 @@ function interviewApp() {
   return {
     // ---------- الحالة ----------
     screen: "home",
+    sidebarOpen: false,
     personas: PERSONAS,
     priorities: PRIORITY_LABELS,
     sources: SOURCES,
@@ -66,6 +67,35 @@ function interviewApp() {
       return Math.round(((this.currentIndex + 1) / this.activeQuestions.length) * 100);
     },
 
+    get sidebarGroups() {
+      const order = [];
+      const map = {};
+      this.activeQuestions.forEach((q, index) => {
+        const cat = q.category || "أخرى";
+        if (!map[cat]) {
+          map[cat] = { category: cat, items: [] };
+          order.push(cat);
+        }
+        map[cat].items.push({
+          id: q.id,
+          index,
+          priority: q.priority,
+          keywords: q.keywords,
+        });
+      });
+      return order.map((cat) => map[cat]);
+    },
+
+    priorityDot(p) {
+      const map = {
+        1: "bg-red-500",
+        2: "bg-orange-500",
+        3: "bg-blue-500",
+        4: "bg-slate-500",
+      };
+      return map[p] || map[4];
+    },
+
     loadAnswer() {
       const q = this.currentQuestion;
       const saved = this.draft.answers[q.id];
@@ -126,8 +156,10 @@ function interviewApp() {
     },
 
     jumpTo(idx) {
+      this.commitAnswer(false);
       this.currentIndex = idx;
       this.loadAnswer();
+      this.sidebarOpen = false;
       this.screen = "question";
     },
 
@@ -197,6 +229,7 @@ function interviewApp() {
           keywords: q.keywords,
           questionText: q.text,
           priority: q.priority,
+          category: q.category,
           section: q.section,
           skipped: !this.isAnswered(q.id),
           value: a.value || "",
@@ -287,7 +320,7 @@ function interviewApp() {
       const rows = [];
       const header = [
         "interview_id", "date", "persona", "name", "source", "completion_rate", "duration_sec", "overall_notes",
-        "question_id", "priority", "section", "keywords", "question_text", "skipped", "answer",
+        "question_id", "priority", "category", "section", "keywords", "question_text", "skipped", "answer",
       ];
       rows.push(header);
       this.interviews.forEach((iv) => {
@@ -303,6 +336,7 @@ function interviewApp() {
             iv.notes || "",
             a.questionId,
             a.priority,
+            a.category || "",
             a.section || "",
             a.keywords || "",
             a.questionText || "",
