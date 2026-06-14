@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>أداة المقابلات - اكتشاف العملاء</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Cairo', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    html, body { font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background: #0f172a; overscroll-behavior-y: contain; }
+    [x-cloak] { display: none !important; }
+    .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+    ::-webkit-scrollbar { width: 0; height: 0; }
+    textarea { font-family: 'Cairo', sans-serif; }
+    @media (max-width: 480px) { .app-shell { max-width: 100%; } }
+  </style>
+  <script src="questions.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="text-slate-100">
+  <div x-data="interviewApp()" x-cloak class="app-shell mx-auto max-w-md min-h-screen flex flex-col">
+
+    <!-- ============ شاشة الرئيسية ============ -->
+    <template x-if="screen === 'home'">
+      <div class="flex-1 flex flex-col p-5 pt-10">
+        <div class="text-center mb-10">
+          <div class="text-5xl mb-3">📋</div>
+          <h1 class="text-2xl font-extrabold">أداة المقابلات</h1>
+          <p class="text-slate-400 mt-1">اكتشاف العملاء - الجيم</p>
+        </div>
+
+        <div class="bg-slate-800 rounded-2xl p-4 mb-6 flex items-center justify-between">
+          <span class="text-slate-300">إجمالي المقابلات</span>
+          <span class="text-2xl font-extrabold text-emerald-400" x-text="interviews.length"></span>
+        </div>
+
+        <button @click="startSetup()" class="w-full bg-emerald-500 active:bg-emerald-600 text-slate-900 font-bold text-lg rounded-2xl py-5 mb-4 shadow-lg shadow-emerald-500/20">
+          + مقابلة جديدة
+        </button>
+        <button @click="screen = 'past'" class="w-full bg-slate-800 active:bg-slate-700 text-slate-100 font-bold text-lg rounded-2xl py-5 mb-4">
+          المقابلات السابقة
+          <span class="text-slate-400 text-base" x-text="'(' + interviews.length + ')'"></span>
+        </button>
+        <button @click="screen = 'export'" class="w-full bg-slate-800 active:bg-slate-700 text-slate-100 font-bold text-lg rounded-2xl py-5">
+          تصدير البيانات
+        </button>
+
+        <div class="mt-auto pt-8 text-center text-slate-600 text-xs safe-bottom">
+          البيانات محفوظة على هذا الجهاز فقط - صدّرها بانتظام
+        </div>
+      </div>
+    </template>
+
+    <!-- ============ شاشة إعداد المقابلة ============ -->
+    <template x-if="screen === 'setup'">
+      <div class="flex-1 flex flex-col p-5 pt-8">
+        <button @click="screen = 'home'" class="text-slate-400 mb-6 self-start">← رجوع</button>
+        <h2 class="text-xl font-extrabold mb-6">مقابلة جديدة</h2>
+
+        <label class="text-slate-300 mb-2 block">الاسم أو الكود</label>
+        <input x-model="draft.name" type="text" placeholder="مثال: Dragon أو كوتش-01"
+          class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-4 mb-6 text-lg focus:border-emerald-500 outline-none" />
+
+        <label class="text-slate-300 mb-2 block">نوع الشخص</label>
+        <div class="grid grid-cols-3 gap-3 mb-6">
+          <template x-for="(p, key) in personas" :key="key">
+            <button @click="draft.persona = key"
+              :class="draft.persona === key ? 'bg-emerald-500 text-slate-900 border-emerald-400' : 'bg-slate-800 border-slate-700 text-slate-200'"
+              class="border-2 rounded-2xl py-5 flex flex-col items-center gap-1 font-bold">
+              <span class="text-2xl" x-text="p.icon"></span>
+              <span class="text-sm" x-text="p.label"></span>
+            </button>
+          </template>
+        </div>
+
+        <label class="text-slate-300 mb-2 block">مصدر الترشيح (اختياري)</label>
+        <div class="flex flex-wrap gap-2 mb-8">
+          <template x-for="s in sources" :key="s">
+            <button @click="draft.source = (draft.source === s ? '' : s)"
+              :class="draft.source === s ? 'bg-sky-500 text-slate-900' : 'bg-slate-800 text-slate-300'"
+              class="rounded-full px-4 py-2 text-sm font-semibold" x-text="s"></button>
+          </template>
+        </div>
+
+        <button @click="beginInterview()" :disabled="!draft.persona"
+          :class="draft.persona ? 'bg-emerald-500 text-slate-900' : 'bg-slate-700 text-slate-500'"
+          class="w-full font-bold text-lg rounded-2xl py-5 mt-auto safe-bottom">
+          ابدأ المقابلة
+        </button>
+      </div>
+    </template>
+
+    <!-- ============ شاشة السؤال ============ -->
+    <template x-if="screen === 'question'">
+      <div class="flex-1 flex flex-col min-h-screen">
+        <!-- شريط علوي -->
+        <div class="p-4 pb-2 bg-slate-900/95 backdrop-blur sticky top-0 z-10 border-b border-slate-800">
+          <div class="flex items-center justify-between mb-2">
+            <button @click="confirmExit()" class="text-slate-400 text-sm">إنهاء ✕</button>
+            <span class="text-slate-400 text-sm" x-text="(currentIndex + 1) + ' / ' + activeQuestions.length"></span>
+          </div>
+          <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+            <div class="bg-emerald-500 h-full transition-all duration-300" :style="'width:' + progressPct + '%'"></div>
+          </div>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs px-2 py-1 rounded-full font-bold"
+              :class="priorityClass(currentQuestion.priority)"
+              x-text="priorities[currentQuestion.priority].label"></span>
+            <span class="text-xs text-slate-500" x-text="currentQuestion.section"></span>
+          </div>
+        </div>
+
+        <!-- محتوى السؤال -->
+        <div class="flex-1 overflow-y-auto p-5">
+          <!-- الكلمات المفتاحية -->
+          <div class="text-emerald-400 font-extrabold text-xl mb-3 leading-relaxed" x-text="currentQuestion.keywords"></div>
+          <!-- نص السؤال -->
+          <h2 class="text-lg font-bold leading-relaxed mb-2" x-text="currentQuestion.text"></h2>
+          <!-- تلميح -->
+          <template x-if="currentQuestion.hint">
+            <p class="text-slate-500 text-sm mb-4 leading-relaxed" x-text="'💡 ' + currentQuestion.hint"></p>
+          </template>
+
+          <div class="mt-4 space-y-3">
+            <!-- yesno / yesno_open -->
+            <template x-if="currentQuestion.type === 'yesno' || currentQuestion.type === 'yesno_open'">
+              <div class="grid grid-cols-2 gap-3">
+                <button @click="setYesNo('نعم')"
+                  :class="answer.value === 'نعم' ? 'bg-emerald-500 text-slate-900 border-emerald-400' : 'bg-slate-800 border-slate-700'"
+                  class="border-2 rounded-2xl py-5 font-bold text-lg">نعم</button>
+                <button @click="setYesNo('لا')"
+                  :class="answer.value === 'لا' ? 'bg-rose-500 text-slate-900 border-rose-400' : 'bg-slate-800 border-slate-700'"
+                  class="border-2 rounded-2xl py-5 font-bold text-lg">لا</button>
+              </div>
+            </template>
+
+            <!-- single -->
+            <template x-if="currentQuestion.type === 'single'">
+              <div class="space-y-3">
+                <template x-for="opt in currentQuestion.options" :key="opt">
+                  <button @click="answer.value = opt"
+                    :class="answer.value === opt ? 'bg-emerald-500 text-slate-900 border-emerald-400' : 'bg-slate-800 border-slate-700 text-slate-100'"
+                    class="w-full text-right border-2 rounded-xl py-4 px-4 font-semibold text-base" x-text="opt"></button>
+                </template>
+              </div>
+            </template>
+
+            <!-- multi -->
+            <template x-if="currentQuestion.type === 'multi'">
+              <div class="space-y-3">
+                <template x-for="opt in currentQuestion.options" :key="opt">
+                  <button @click="toggleMulti(opt)"
+                    :class="answer.selectedOptions.includes(opt) ? 'bg-emerald-500 text-slate-900 border-emerald-400' : 'bg-slate-800 border-slate-700 text-slate-100'"
+                    class="w-full text-right border-2 rounded-xl py-4 px-4 font-semibold text-base flex items-center justify-between">
+                    <span x-text="opt"></span>
+                    <span x-show="answer.selectedOptions.includes(opt)">✓</span>
+                  </button>
+                </template>
+              </div>
+            </template>
+
+            <!-- text input followup for yesno_open / number quick picks handled as open below -->
+            <template x-if="currentQuestion.followup && (currentQuestion.type === 'yesno_open' || currentQuestion.type === 'single' || currentQuestion.type === 'multi')">
+              <p class="text-slate-500 text-sm pt-2 leading-relaxed" x-text="'↳ ' + currentQuestion.followup"></p>
+            </template>
+
+            <!-- open text / تفاصيل إضافية لأي نوع -->
+            <textarea x-show="needsTextArea()"
+              :value="answer.openValue"
+              @input="answer.openValue = $event.target.value"
+              :placeholder="textPlaceholder()"
+              rows="3"
+              class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-base focus:border-emerald-500 outline-none leading-relaxed resize-y"></textarea>
+          </div>
+        </div>
+
+        <!-- أزرار التنقل -->
+        <div class="p-4 bg-slate-900/95 backdrop-blur border-t border-slate-800 safe-bottom flex gap-3">
+          <button @click="prevQuestion()" x-show="currentIndex > 0"
+            class="bg-slate-800 active:bg-slate-700 text-slate-300 font-bold rounded-2xl py-4 px-5">→</button>
+          <button @click="skipQuestion()"
+            class="flex-1 bg-slate-800 active:bg-slate-700 text-slate-300 font-bold rounded-2xl py-4">تخطي</button>
+          <button @click="nextQuestion()"
+            class="flex-1 bg-emerald-500 active:bg-emerald-600 text-slate-900 font-bold rounded-2xl py-4"
+            x-text="currentIndex === activeQuestions.length - 1 ? 'إنهاء' : 'التالي'"></button>
+        </div>
+      </div>
+    </template>
+
+    <!-- ============ شاشة الملخص ============ -->
+    <template x-if="screen === 'summary'">
+      <div class="flex-1 flex flex-col p-5 pt-8">
+        <h2 class="text-xl font-extrabold mb-1">ملخص المقابلة</h2>
+        <p class="text-slate-400 mb-1" x-text="(draft.name || 'بدون اسم') + ' · ' + personas[draft.persona].label"></p>
+        <p class="text-emerald-400 text-sm mb-5" x-text="'تم الرد على ' + answeredCount + ' من ' + activeQuestions.length + ' (' + Math.round(completionRate*100) + '%)'"></p>
+
+        <label class="text-slate-300 mb-2 block">ملاحظات عامة وانطباعات</label>
+        <textarea x-model="draft.notes" rows="4" placeholder="أهم إشارة قوية، اقتباس حرفي، إحساسك العام..."
+          class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 mb-5 focus:border-emerald-500 outline-none leading-relaxed"></textarea>
+
+        <div class="space-y-2 overflow-y-auto flex-1 -mx-1 px-1">
+          <template x-for="(q, idx) in activeQuestions" :key="q.id">
+            <div @click="jumpTo(idx)" class="bg-slate-800 rounded-xl p-3 active:bg-slate-700">
+              <div class="flex items-start justify-between gap-2">
+                <span class="text-sm text-slate-300 leading-snug" x-text="q.keywords"></span>
+                <span class="text-xs shrink-0" :class="isAnswered(q.id) ? 'text-emerald-400' : 'text-slate-600'"
+                  x-text="isAnswered(q.id) ? '✓ تم' : 'تخطي'"></span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1 truncate" x-text="answerPreview(q.id)"></p>
+            </div>
+          </template>
+        </div>
+
+        <div class="flex gap-3 pt-4 safe-bottom">
+          <button @click="screen = 'question'" class="bg-slate-800 active:bg-slate-700 text-slate-300 font-bold rounded-2xl py-4 px-5">رجوع للأسئلة</button>
+          <button @click="saveInterview()" class="flex-1 bg-emerald-500 active:bg-emerald-600 text-slate-900 font-bold text-lg rounded-2xl py-4">حفظ وإنهاء</button>
+        </div>
+      </div>
+    </template>
+
+    <!-- ============ شاشة المقابلات السابقة ============ -->
+    <template x-if="screen === 'past'">
+      <div class="flex-1 flex flex-col p-5 pt-8">
+        <button @click="screen = 'home'" class="text-slate-400 mb-4 self-start">← رجوع</button>
+        <h2 class="text-xl font-extrabold mb-5">المقابلات السابقة</h2>
+
+        <template x-if="interviews.length === 0">
+          <p class="text-slate-500 text-center mt-10">لا توجد مقابلات بعد</p>
+        </template>
+
+        <div class="space-y-3 overflow-y-auto flex-1">
+          <template x-for="iv in sortedInterviews" :key="iv.id">
+            <div class="bg-slate-800 rounded-xl p-4">
+              <div class="flex items-center justify-between">
+                <div @click="viewInterview(iv)" class="flex-1">
+                  <div class="flex items-center gap-2">
+                    <span x-text="personas[iv.persona].icon"></span>
+                    <span class="font-bold" x-text="iv.name || 'بدون اسم'"></span>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-1" x-text="formatDate(iv.date) + ' · ' + personas[iv.persona].label + ' · ' + Math.round(iv.completionRate*100) + '%'"></p>
+                </div>
+                <button @click="deleteInterview(iv.id)" class="text-rose-400 text-sm px-3">حذف</button>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+
+    <!-- ============ شاشة تفاصيل مقابلة ============ -->
+    <template x-if="screen === 'pastDetail'">
+      <div class="flex-1 flex flex-col p-5 pt-8">
+        <button @click="screen = 'past'" class="text-slate-400 mb-4 self-start">← رجوع</button>
+        <h2 class="text-xl font-extrabold" x-text="viewing.name || 'بدون اسم'"></h2>
+        <p class="text-slate-400 text-sm mb-1" x-text="personas[viewing.persona].label + ' · ' + formatDate(viewing.date)"></p>
+        <template x-if="viewing.notes">
+          <div class="bg-slate-800 rounded-xl p-3 my-3">
+            <p class="text-xs text-slate-500 mb-1">ملاحظات عامة</p>
+            <p class="text-sm leading-relaxed" x-text="viewing.notes"></p>
+          </div>
+        </template>
+        <div class="space-y-3 overflow-y-auto flex-1 mt-2">
+          <template x-for="a in viewing.answers" :key="a.questionId">
+            <div class="bg-slate-800 rounded-xl p-3" x-show="!a.skipped">
+              <p class="text-sm font-semibold text-emerald-400 mb-1" x-text="questionById(a.questionId).keywords"></p>
+              <p class="text-xs text-slate-400 mb-1" x-text="questionById(a.questionId).text"></p>
+              <p class="text-sm leading-relaxed" x-text="fullAnswerText(a)"></p>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+
+    <!-- ============ شاشة التصدير ============ -->
+    <template x-if="screen === 'export'">
+      <div class="flex-1 flex flex-col p-5 pt-8">
+        <button @click="screen = 'home'" class="text-slate-400 mb-4 self-start">← رجوع</button>
+        <h2 class="text-xl font-extrabold mb-2">تصدير البيانات</h2>
+        <p class="text-slate-400 mb-6" x-text="interviews.length + ' مقابلة جاهزة للتصدير'"></p>
+
+        <button @click="exportJSON()" class="w-full bg-emerald-500 active:bg-emerald-600 text-slate-900 font-bold text-lg rounded-2xl py-5 mb-4">
+          تصدير JSON
+          <span class="block text-sm font-normal opacity-80">للتحليل البرمجي والنسخ الاحتياطي</span>
+        </button>
+        <button @click="exportCSV()" class="w-full bg-sky-500 active:bg-sky-600 text-slate-900 font-bold text-lg rounded-2xl py-5 mb-4">
+          تصدير CSV
+          <span class="block text-sm font-normal opacity-80">للفتح في Excel أو Google Sheets</span>
+        </button>
+
+        <div class="mt-auto safe-bottom">
+          <button @click="copyJSON()" class="w-full bg-slate-800 active:bg-slate-700 text-slate-300 font-semibold rounded-2xl py-4 mb-3">
+            نسخ JSON للحافظة
+          </button>
+          <p class="text-slate-600 text-xs text-center" x-text="copyMsg"></p>
+        </div>
+      </div>
+    </template>
+
+    <!-- Toast -->
+    <div x-show="toast" x-transition
+      class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-700 text-white px-5 py-3 rounded-full text-sm shadow-lg z-50"
+      x-text="toast"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
